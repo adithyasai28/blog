@@ -10,11 +10,11 @@ app.use(express.json())
 app.use(cors())
 
 const userapi = require("./apis/userapi")
-const blogapi = require("./apis/blogapi")
+const authorapi = require("./apis/authorapi")
 const adminapi = require("./apis/adminapi")
 
 app.use("/userapi",userapi)
-app.use("/blogapi",blogapi)
+app.use("/authorapi",authorapi)
 app.use("/adminapi",adminapi)
 
 const mongoclient = require("mongodb").MongoClient
@@ -23,9 +23,11 @@ mongoclient.connect(MONGOURL)
 .then((client) => {
     const db = client.db("blogapp")
     const usercollection = db.collection("usercollection")
-    const blogcollection = db.collection("blogcollection")
+    const authorcollection = db.collection("authorcollection")
+    const blogcollection = db.collection("blogcollecion")
     app.set("usercollection",usercollection)
     app.set("blogcollection",blogcollection)
+    app.set("authorcollection",authorcollection)
     
     console.log("mongo connected")
 })
